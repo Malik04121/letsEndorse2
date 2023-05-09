@@ -11,24 +11,18 @@ function AllOffer(){
 
 const [data,setData]=useState([])
     
+    const getAllData=()=>{
+      axios.get(`${baseUrl}/offer`)
+      .then(res=>{
+        setData(res.data);
+      }) 
+      .catch(err=>console.log(err))
+    }
 
       useEffect(()=>{
-          axios.get(`${baseUrl}/offer`)
-          .then(res=>{
-            // let lastObject=res.data[res.data.length-1];
-            setData(res.data);
-            console.log(res.data)
-            // setExpirationDate(lastObject.expirationDate)
-          }) 
-          .catch(err=>console.log(err))
+         getAllData()
       },[])
-      function formatDate(dateString) {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.toLocaleString('default', { month: 'long' });
-        const year = date.getFullYear();
-        return `${day} ${month} ${year}`;
-      }
+     
 
       return (
         <>

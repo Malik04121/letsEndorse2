@@ -22,24 +22,15 @@ const formDataObj={
 }
 function Home(){
    const [formData,setFormData]=useState(formDataObj)
-
    const navigate=useNavigate()
 
    const  handleInput=(e)=>{
     const {name,value}=e.target
      setFormData({...formData,[name]:value})
    }
-   const handleInputDate = (e) => {
-    const { name, value } = e.target;
-    const [year, month, day] = value.split("-"); // split the value into year, month, and day
-    const formattedDate = `${day} ${new Date(`${month} 1`).toLocaleString('default', { month: 'long' })} ${year}`; // format the date in "d Month yyyy" format
-    setFormData({ ...formData, [name]: formattedDate });
-  }
-  
   
     const SubmitForm=(e)=>{
          e.preventDefault()
-         console.log(formData)
          axios.post(`${baseUrl}/offer/createOffer`,formData)
          .then(res=>console.log(res.data))
          .catch(err=>console.log(err))

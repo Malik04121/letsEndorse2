@@ -12,14 +12,18 @@ function SingleOffer(){
     const month = date.toLocaleString('default', { month: 'long' });
     const year = date.getFullYear();
 
+      const getSingleOffer=()=>{
+        axios.get(`${baseUrl}/offer`)
+        .then(res=>{
+          let lastObject=res.data[res.data.length-1];
+          setData(lastObject);
+          setExpirationDate(lastObject.expirationDate)
+        }) 
+        .catch(err=>console.log(err))
+      }
+
       useEffect(()=>{
-          axios.get(`${baseUrl}/offer`)
-          .then(res=>{
-            let lastObject=res.data[res.data.length-1];
-            setData(lastObject);
-            setExpirationDate(lastObject.expirationDate)
-          }) 
-          .catch(err=>console.log(err))
+         getSingleOffer()
       },[])
 
     return(
